@@ -1,0 +1,10 @@
+.about-photo {
+    max-width: 30%; 
+    display: block; 
+    margin: 0 auto;
+}
+
+.about-card {
+    background-color:white; 
+    width: 80%;
+}

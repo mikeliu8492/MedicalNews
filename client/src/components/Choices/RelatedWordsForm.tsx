@@ -19,6 +19,7 @@ class RelatedWordsForm extends Component {
 
     state= {
         input: "",
+        madeSubmission: false,
         relatedWordArray: [],
     }
 
@@ -35,41 +36,52 @@ class RelatedWordsForm extends Component {
 
         this.setState({
             relatedWordArray: formattedList,
+            madeSubmission: true
         })
     }
 
     renderRelatedWordList() {
-        if(this.state.relatedWordArray.length > 0) {
+        if(this.state.relatedWordArray.length) {
             return(
-                <ol>
-                    {this.state.relatedWordArray.map(item => {
-                        return(<li key={item}>{item}</li>)
-                    })}                
-                </ol>)
+                <div>
+                    <h6 className="text-center">Suggested Related Words</h6>
+                    <ol>
+                        {this.state.relatedWordArray.map(item => {
+                            return(<li key={item}>{item}</li>)
+                        })}                
+                    </ol>
+                </div>
+            )
         }
 
-        return(
-            <p>No Related Words Found</p>
-        )
+        if(this.state.madeSubmission) {
+            return(<p className="text-danger">No results found for this word, please try again.</p>)
+        }
 
+        return(<p>No submission made.</p>) 
+        
     }
 
     render() {
         return(
             <div className="card news-item-card px-2">
                 <div className="card-body">                
-                    <h6 className="card-title text-center">Select a Word to Get Its Synonyms</h6>
+                    <h6 className="card-title text-center">Search Term Suggestor</h6>
                     <br/>
                     <form onSubmit={this.handleSubmit}>
                         <div className="form-group">
-                            <label>Word To Substitute</label>
+                            <label>Input a Word to Get Related Words</label>
                             <input type="text" className="form-control" value={this.state.input} onChange={this.handleInputChange}></input>
                         </div>
                         <button type="submit" className="btn btn-success">Submit</button>
                     </form>
+                    <br/>
+                    <div>
+                        {this.renderRelatedWordList()}
+                    </div>
                 </div>
-                <br/>
-                {this.renderRelatedWordList()}
+
+                
             </div>
         )
     }

@@ -95,7 +95,18 @@ class NewsArticleList extends Component<Props, State> {
 
     async componentWillMount() {
         try {
-            const result = await axios.get('/api/news/top_headlines');
+            let resultUrl = "";
+            let result;
+            
+            if(!this.props.personal) {
+                resultUrl = '/api/news/top_headlines';
+                result = await axios.get(resultUrl);
+            }
+            else {
+                resultUrl = '/api/news/personal_top_headlines';
+                result = await axios.post(resultUrl, {topics: ["cardiac", "heart"]});
+            }
+            
             const articleList: any [] = result.data.articles;
     
             this.setState({
