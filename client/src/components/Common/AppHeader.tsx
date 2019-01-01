@@ -50,9 +50,9 @@ class AppHeader extends Component {
 
     render() {
         return(
-            <div className="app-header-div">
+            <div className="app-header-div navbar-dark">
                 <nav className="navbar navbar-expand-lg container">
-                    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                    <button id="nav-toggle-button" className="navbar-toggler custom-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarText">

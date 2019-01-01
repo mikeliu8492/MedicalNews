@@ -2,6 +2,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const secure = require('express-force-https');
 const path = require('path');
+const mongoose = require('mongoose');
+
+const config = require('./config/config')
 
 const app = express();
 
@@ -11,6 +14,25 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
+// Enable CORS in non-production environments, since we are using different ports
+if(process.env.NODE_ENV !== "production") {
+    app.use((req,res, next) => {
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With-Header, Content-Type, Accept");
+        res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, PUT, DELETE, OPTIONS");
+        next();
+    })
+}
+
+
+// Connect to Mongoose DB
+mongoose.connect(config.mongoString, { useNewUrlParser: true,useCreateIndex: true }).then(() => {
+    console.log("MongoDB Connection successful!");
+})
+.catch((err) => {
+    console.log(err);
+    return;
+})
 
 // Import your API index and equip it to your app
 const api = require('./index');
@@ -40,5 +62,5 @@ else{
 const port = process.env.PORT || 5000;
 
 app.listen(port, () => {
-    console.log(`Listning on port ${port}`);
+    console.log(`Listening on port ${port}`);
 })
