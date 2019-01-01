@@ -24,8 +24,9 @@ class Login extends Component <any, State> {
 
         try {
             const result = await axios.post("http://localhost:5000/api/user/login", {email: this.state.email, password: this.state.password});
-            const errorBaseline = { email: "", password: ""};
-            this.setState({errors: errorBaseline});
+            console.log(result);
+            // TODO:  Send data to redux store.
+            this.props.history.push('/subscription');     
         }
         catch(err) {
             this.setState({errors: err.response.data.errors})

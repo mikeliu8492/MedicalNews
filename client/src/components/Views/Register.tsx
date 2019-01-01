@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import axios from 'axios';
 
 interface State {
     firstName: string,
@@ -21,12 +22,19 @@ class Register extends Component <any, State> {
         this.setState({ [field]: event.target.value } as Pick<State, any>);
     }
 
-    handleSubmit = (e: any) => {
+    handleSubmit = async (e: any) => {
         e.preventDefault();
-        console.log(this.state.firstName);
-        console.log(this.state.lastName);
-        console.log(this.state.email);
-        console.log(this.state.password);
+
+        try {
+            const result = await axios.post("http://localhost:5000/api/user/register", {email: this.state.email, password: this.state.password, firstName: this.state.firstName, lastName: this.state.lastName});
+            console.log(result);
+            // TODO:  Send data to redux store.
+            this.props.history.push('/subscription');
+        }
+        catch(err) {
+            this.setState({errors: err.response.data.errors})
+        }
+
     }
 
     showError = (errorMessage: string) => {
@@ -42,15 +50,15 @@ class Register extends Component <any, State> {
                     <div className="card-body">                
                         <h6 className="card-title text-center">Registration Form</h6>
                         <br/>
-                        <form onSubmit={this.handleSubmit}>
+                        <form onSubmit={this.handleSubmit} noValidate>
                             <div className="form-group">
                                 <label className="px-1">First Name</label>
-                                <input type="email" className="form-control" value={this.state.email} onChange={this.handleFieldChange("firstName")} required></input>
+                                <input type="text" className="form-control" value={this.state.firstName} onChange={this.handleFieldChange("firstName")} required></input>
                                 {this.showError(this.state.errors.firstName)}
                             </div>
                             <div className="form-group">
                                 <label className="px-1">Last Name</label>
-                                <input type="email" className="form-control" value={this.state.email} onChange={this.handleFieldChange("lastName")} required></input>
+                                <input type="text" className="form-control" value={this.state.lastName} onChange={this.handleFieldChange("lastName")} required></input>
                                 {this.showError(this.state.errors.lastName)}
                             </div>
                             <div className="form-group">
