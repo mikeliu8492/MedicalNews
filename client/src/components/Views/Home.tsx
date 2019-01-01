@@ -4,7 +4,7 @@ import NewsArticleList from '../NewsArticles/NewsArticleList';
 const Home = () => {
     return(
         <div>
-            <h1 className="text-center ">Top News Stories of the day</h1>
+            <h1 className="text-center ">Top Medical News Today Stories</h1>
             <br/><br/>
             <NewsArticleList personal={false}/>
         </div>
