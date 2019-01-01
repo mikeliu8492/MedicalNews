@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+
+//
+import {connect} from 'react-redux';
+
 import NewsItem from './NewsItem';
 
 const fakeSource = [
@@ -74,7 +78,8 @@ const fakeSource = [
 
 interface Props {
     personal: boolean,
-    personalUrL?: string
+    personalUrL?: string,
+    topics?: string []
 }
 
 type State = {
@@ -88,12 +93,19 @@ class NewsArticleList extends Component<Props, State> {
 
     constructor(props: Props) {
         super(props);
-
-        this.assembleArticleList = this.assembleArticleList.bind(this);
     }
 
 
     async componentWillMount() {
+        console.log(this.props);
+        await this.fetchArticlesWrapper("");
+    }
+
+    async componentWillReceiveProps(nextProps: any) {
+        await this.fetchArticlesWrapper(nextProps);
+    }
+
+    fetchArticlesWrapper = async (nextProps: any) => {
         try {
             let resultUrl = "";
             let result;
@@ -103,11 +115,13 @@ class NewsArticleList extends Component<Props, State> {
                 result = await axios.get(resultUrl);
             }
             else {
+                console.log("other headlines")
                 resultUrl = '/api/news/personal_top_headlines';
-                result = await axios.post(resultUrl, {topics: ["cardiac", "heart"]});
+                result = await axios.post(resultUrl, {topics: nextProps.topics});
             }
             
             const articleList: any [] = result.data.articles;
+            console.log(articleList);
     
             this.setState({
                 articleList: articleList
@@ -119,10 +133,9 @@ class NewsArticleList extends Component<Props, State> {
                 articleList: fakeSource
             });
         }
-
     }
 
-    assembleArticleList() {
+    assembleArticleList = () => {
         return this.state.articleList.map(article => {
             return (
                 <div key={article.title}>
@@ -143,5 +156,9 @@ class NewsArticleList extends Component<Props, State> {
         );
     }
   }
-  
-  export default NewsArticleList;
+
+  const matchStateToProps = (state: any) => ({
+      topics: state.topics
+  });
+
+  export default connect(matchStateToProps,null)(NewsArticleList);

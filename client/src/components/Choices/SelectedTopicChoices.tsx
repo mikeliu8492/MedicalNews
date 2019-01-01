@@ -1,6 +1,10 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 
+
+import {connect} from 'react-redux';
+import {changeTopics} from '../../actions/topic/TopicActions';
+
 interface State {
     input: string,
     errorMessage: string
@@ -70,9 +74,7 @@ class SelectedTopicChoices extends Component<any, State> {
 
     handleSubmit = async (e: React.FormEvent<EventTarget>) => {
         e.preventDefault();
-        console.log("submitted to Axios");
-        const result = await axios.post("/api/news/personal_top_headlines", {topics: this.state.relatedWordArray});
-        console.log(result);
+        this.props.changeTopics(this.state.relatedWordArray);
     }
 
     renderRelatedWordList = () => {
@@ -94,6 +96,7 @@ class SelectedTopicChoices extends Component<any, State> {
     }
 
     render() {
+        console.log(this.props.topics);
         return(
             <div className="card news-item-card px-2">
                 <div className="card-body">                
@@ -124,12 +127,14 @@ class SelectedTopicChoices extends Component<any, State> {
                         {this.renderRelatedWordList()}
                     </div>
                 </div>
-
-                
             </div>
         )
     }
-
 }
 
-export default SelectedTopicChoices;
+const matchStateToProps = (state: any) => ({
+    topics: state.topics
+});
+
+
+export default connect(matchStateToProps, { changeTopics })(SelectedTopicChoices);
