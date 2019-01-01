@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import axios from 'axios';
 
 interface State {
     email: string,
@@ -18,13 +19,18 @@ class Login extends Component <any, State> {
         this.setState({ [field]: event.target.value } as Pick<State, any>);
     }
 
-    handleSubmit = (e: any) => {
+    handleSubmit = async (e: any) => {
         e.preventDefault();
-        console.log(this.state.email);
-        console.log(this.state.password);
-    }
 
-    parseErrorArray = (error: any) => {
+        try {
+            const result = await axios.post("http://localhost:5000/api/user/login", {email: this.state.email, password: this.state.password});
+            const errorBaseline = { email: "", password: ""};
+            this.setState({errors: errorBaseline});
+        }
+        catch(err) {
+            this.setState({errors: err.response.data.errors})
+        }
+
 
     }
 
@@ -41,7 +47,7 @@ class Login extends Component <any, State> {
                     <div className="card-body">                
                         <h6 className="card-title text-center">Login Form</h6>
                         <br/>
-                        <form onSubmit={this.handleSubmit}>
+                        <form noValidate onSubmit={this.handleSubmit}>
                             <div className="form-group">
                                 <label className="px-1">Email</label>
                                 <input type="email" name="email" className="form-control" value={this.state.email} onChange={this.handleFieldChange("email")} required></input>
