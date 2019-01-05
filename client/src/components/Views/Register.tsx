@@ -1,8 +1,11 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 
+import { Redirect } from 'react-router-dom'
+
 import {connect} from 'react-redux';
 import {loginDispatch} from '../../actions/auth/AuthActions';
+
 
 interface State {
     firstName: string,
@@ -30,7 +33,6 @@ class Register extends Component <any, State> {
 
         try {
             const result = await axios.post("http://localhost:5000/api/user/register", {email: this.state.email, password: this.state.password, firstName: this.state.firstName, lastName: this.state.lastName});
-            console.log(result.data);
             this.props.loginDispatch(this.state.email, this.state.password, this.props.history);
         }
         catch(err) {
@@ -83,7 +85,8 @@ class Register extends Component <any, State> {
 }
 
 const matchStateToProps = (state: any) => ({
-    auth: state.auth
+    auth: state.auth,
+    errors: state.errors
 });
 
 export default connect(matchStateToProps, { loginDispatch })(Register);

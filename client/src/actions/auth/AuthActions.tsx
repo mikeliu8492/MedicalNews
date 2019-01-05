@@ -1,4 +1,6 @@
 import {LOGIN_DISPATCH, LOGOUT_DISPATCH} from './types';
+import {ERROR_SET} from '../error/types';
+import {setErrors} from '../error/ErrorActions';
 import axios from 'axios';
 
 
@@ -19,10 +21,8 @@ export const loginDispatch = (email: string, password: string, history: any) => 
         })
     })
     .catch(err => {
-        dispatch({
-            type: "GET ERRORS",
-            payload: {}
-        })
+        const errorList = err.response.data.errors;
+        dispatch(setErrors(errorList));
     })
 }
 

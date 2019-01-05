@@ -16,8 +16,15 @@ class AppHeader extends Component<any,any> {
     renderEditSubscription = () => {
         if(this.props.auth.isAuthenticated) {
             return (
-                <li className="nav-item">
-                    <a className="nav-link text-light" href="#">Edit Subscription</a>
+                <li className="nav-item active dropdown">
+                    <a className="nav-link dropdown-toggle" href="user_options_dropdown" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        User Options
+                    </a>
+                    
+                    <div className="dropdown-menu" aria-labelledby="navbarDropdown" style={{minWidth: "300px"}}>
+                        <Link className="nav-link text-dark" to="/subscription">Preview Your Subscription</Link>
+                        <Link className="nav-link text-dark" to="/">User Settings</Link>
+                    </div>
                 </li>
             );
         }
@@ -28,6 +35,9 @@ class AppHeader extends Component<any,any> {
         if(this.props.auth.isAuthenticated) {
             return (
                 <ul className="navbar-nav mr-auto">
+                    <li className="nav-item">
+                        <p className="nav-link text-light">Welcome {this.props.auth.user.firstName}!</p>
+                    </li>
                     <li className="nav-item">
                         <Link onClick={this.logOut} className="nav-link text-light" to="/">Logout</Link>
                     </li>
@@ -48,7 +58,6 @@ class AppHeader extends Component<any,any> {
     }
 
     logOut = () => {
-        console.log(this.props);
         this.props.logoutDispatch();
         
     }
@@ -65,10 +74,10 @@ class AppHeader extends Component<any,any> {
                             <li className="nav-item active">
                                 <Link className="nav-link text-light" to="/">Home</Link>
                             </li>
-                            {this.renderEditSubscription()}
                             <li className="nav-item active">
                                 <Link className="nav-link text-light" to="/about">About</Link>
                             </li>
+                            {this.renderEditSubscription()}
                         </ul>
                         <span className="navbar-text text-light">
                             {this.renderAuthenticationLinks()}
