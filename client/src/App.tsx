@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import {Provider} from 'react-redux';
 import {createStore, applyMiddleware} from 'redux';
+import jwt_decode from 'jwt-decode';
+import {logoutDispatch} from './actions/auth/AuthActions';
 
 // Components
 import AppHeader from './components/Common/AppHeader';
@@ -13,7 +15,33 @@ import './App.css';
 // Port your redux store:
 import store from './store';
 
+
+  if(localStorage.token) {
+    const decoded: any = jwt_decode(localStorage.token);
+    if(!decoded) {
+      console.log("Bad token");
+    }
+    else {
+      console.log(decoded);
+      if(decoded.exp < Date.now()){
+        store.dispatch({
+          type: "LOGOUT DISPATCH",
+          payload: {}
+        });
+      }
+      else {
+        console.log("set the user");
+      }
+    }
+  }
+  else {
+    console.log("ON LOAD TOKEN NOT EXISTS")
+  }
+
 class App extends Component {
+
+
+
   render() {
     return (
       <Provider store={store}>

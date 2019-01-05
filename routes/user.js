@@ -109,10 +109,10 @@ router.post("/register", async (req,res,next) => {
         const salt = await bcrypt.genSalt(10);
         const password = await bcrypt.hashSync(req.body.password,salt);
         req.body.password = password;
-        //const user = await User.create(req.body);
-        return res.status(201).json({user: req.body})
+        const user = await User.create(req.body);
+        //return res.status(201).json({user: req.body})
         // TODO:  Automatically give back the token and refactor token creation to seperate function.
-        //return res.status(201).json({message: "New user created", user: user});
+        return res.status(201).json({message: "New user created", user: user});
     }
     catch(err) {
         return res.status(500).json({message: err.toString()});

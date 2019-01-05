@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 
+import {connect} from 'react-redux';
+import {loginDispatch} from '../../actions/auth/AuthActions';
+
 interface State {
     email: string,
     password: string,
@@ -21,18 +24,7 @@ class Login extends Component <any, State> {
 
     handleSubmit = async (e: any) => {
         e.preventDefault();
-
-        try {
-            const result = await axios.post("http://localhost:5000/api/user/login", {email: this.state.email, password: this.state.password});
-            console.log(result);
-            // TODO:  Send data to redux store.
-            this.props.history.push('/subscription');     
-        }
-        catch(err) {
-            this.setState({errors: err.response.data.errors})
-        }
-
-
+        this.props.loginDispatch(this.state.email, this.state.password, this.props.history);
     }
 
     showError = (errorMessage?: string) => {
@@ -68,4 +60,8 @@ class Login extends Component <any, State> {
     }
 }
 
-export default Login;
+const matchStateToProps = (state: any) => ({
+    auth: state.auth
+});
+
+export default connect(matchStateToProps, { loginDispatch })(Login);

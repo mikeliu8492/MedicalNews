@@ -1,0 +1,2 @@
+export const LOGIN_DISPATCH = "LOGIN DISPATCH";
+export const LOGOUT_DISPATCH = "LOGOUT DISPATCH";

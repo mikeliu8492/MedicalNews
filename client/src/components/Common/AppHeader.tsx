@@ -1,21 +1,20 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 
+import {connect} from 'react-redux';
+import {logoutDispatch} from '../../actions/auth/AuthActions'
+
 import './AppHeader.css'
 
-class AppHeader extends Component {
-    constructor(props: any) {
-        super(props);
 
-        this.renderEditSubscription = this.renderEditSubscription.bind(this);
-    }
 
+class AppHeader extends Component<any,any> {
     state = {
         authenticated: false
     }
 
-    renderEditSubscription() {
-        if(this.state.authenticated) {
+    renderEditSubscription = () => {
+        if(this.props.auth.isAuthenticated) {
             return (
                 <li className="nav-item">
                     <a className="nav-link text-light" href="#">Edit Subscription</a>
@@ -26,11 +25,11 @@ class AppHeader extends Component {
 
     renderAuthenticationLinks() {
 
-        if(this.state.authenticated) {
+        if(this.props.auth.isAuthenticated) {
             return (
                 <ul className="navbar-nav mr-auto">
                     <li className="nav-item">
-                        <a className="nav-link text-light" href="#">Logout</a>
+                        <Link onClick={this.logOut} className="nav-link text-light" to="/">Logout</Link>
                     </li>
                 </ul>
             )
@@ -46,6 +45,12 @@ class AppHeader extends Component {
                 </li>
             </ul>
         )
+    }
+
+    logOut = () => {
+        console.log(this.props);
+        this.props.logoutDispatch();
+        
     }
 
     render() {
@@ -75,4 +80,8 @@ class AppHeader extends Component {
     }
 }
 
-export default AppHeader;
+const matchStateToProps = (state: any) => ({
+    auth: state.auth
+});
+
+export default connect(matchStateToProps, { logoutDispatch })(AppHeader);
