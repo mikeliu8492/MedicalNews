@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import CopyWordList from '../Common/CopyWordList';
 import axios from 'axios';
 
 interface IRelatedWord {
@@ -45,11 +46,9 @@ class RelatedWordsForm extends Component {
             return(
                 <div>
                     <h6 className="text-center">Suggested Related Words</h6>
-                    <ol>
-                        {this.state.relatedWordArray.map(item => {
-                            return(<li key={item}>{item}</li>)
-                        })}                
-                    </ol>
+                    <br/>
+                    <CopyWordList copyArray={this.state.relatedWordArray}/>
+                    <br/>
                 </div>
             )
         }
