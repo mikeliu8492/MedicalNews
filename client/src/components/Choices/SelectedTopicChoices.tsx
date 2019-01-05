@@ -96,10 +96,9 @@ class SelectedTopicChoices extends Component<any, State> {
     }
 
     render() {
-        console.log(this.props.topics);
         return(
-            <div className="card news-item-card px-2">
-                <div className="card-body">                
+            <div className="card w-75 mx-auto">
+                <div className="card-body m-3">                
                     <h6 className="card-title text-center">Topic Entry</h6>
                     <br/>
                     <form onSubmit={this.handleSubmit}>
@@ -109,16 +108,20 @@ class SelectedTopicChoices extends Component<any, State> {
                             <p className="text-danger">{this.state.errorMessage}</p>
                         </div>
                         <div className="form-group row">
-                            <div className="col-md-4">
-                                <button type="button" className="btn btn-success" onClick={this.handleAdd}>Add</button>
+                            <div className="col-md-3">
+                                <button type="button" className="btn btn-success" onClick={this.handleAdd}><i className="fas fa-plus pr-2"></i>Add</button>
                             </div>
-                            <div className="col-md-8">
-                                <button type="button" className="btn btn-danger" onClick={this.handleDelete}>Delete</button>
+                            <div className="col-md-3">
+                                <button type="button" className="btn btn-danger" onClick={this.handleDelete}><i className="fas fa-times pr-2"></i>Delete</button>
+                            </div>
+                            <div className="col-md-6">
+                                <button type="submit" className="btn btn-primary"><i className="fas fa-save pr-2"></i>Preview Article Samples</button>
                             </div>
                         </div>
+                        <br/>
                         <div className="form-group row">
                             <div className="col-md-12">
-                                <button type="submit" className="btn btn-primary">Submit</button>
+                                <button type="button" className="btn btn-warning" onClick={() => {console.log("go to other")}}><i className="fas fa-tools pr-2"></i>Set These Criteria In Settings</button>
                             </div>
                         </div>
                     </form>

@@ -63,7 +63,7 @@ class RelatedWordsForm extends Component {
 
     render() {
         return(
-            <div className="card news-item-card px-2">
+            <div className="card w-75 mx-auto">
                 <div className="card-body">                
                     <h6 className="card-title text-center">Search Term Suggestor</h6>
                     <br/>
@@ -72,7 +72,7 @@ class RelatedWordsForm extends Component {
                             <label>Input a Word to Get Related Words</label>
                             <input type="text" className="form-control" value={this.state.input} onChange={this.handleInputChange}></input>
                         </div>
-                        <button type="submit" className="btn btn-success">Submit</button>
+                        <button type="submit" className="btn btn-success"><i className="fas fa-save pr-2"></i>Submit</button>
                     </form>
                     <br/>
                     <div>
