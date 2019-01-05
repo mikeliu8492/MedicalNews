@@ -1,24 +1,30 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 
+import {connect} from 'react-redux';
+import {logoutDispatch} from '../../actions/auth/AuthActions'
+
 import './AppHeader.css'
 
-class AppHeader extends Component {
-    constructor(props: any) {
-        super(props);
 
-        this.renderEditSubscription = this.renderEditSubscription.bind(this);
-    }
 
+class AppHeader extends Component<any,any> {
     state = {
         authenticated: false
     }
 
-    renderEditSubscription() {
-        if(this.state.authenticated) {
+    renderEditSubscription = () => {
+        if(this.props.auth.isAuthenticated) {
             return (
-                <li className="nav-item">
-                    <a className="nav-link text-light" href="#">Edit Subscription</a>
+                <li className="nav-item active dropdown">
+                    <a className="nav-link dropdown-toggle" href="user_options_dropdown" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        User Options
+                    </a>
+                    
+                    <div className="dropdown-menu" aria-labelledby="navbarDropdown" style={{minWidth: "300px"}}>
+                        <Link className="nav-link text-dark" to="/subscription">Preview Your Subscription</Link>
+                        <Link className="nav-link text-dark" to="/">User Settings</Link>
+                    </div>
                 </li>
             );
         }
@@ -26,11 +32,14 @@ class AppHeader extends Component {
 
     renderAuthenticationLinks() {
 
-        if(this.state.authenticated) {
+        if(this.props.auth.isAuthenticated) {
             return (
                 <ul className="navbar-nav mr-auto">
                     <li className="nav-item">
-                        <a className="nav-link text-light" href="#">Logout</a>
+                        <p className="nav-link text-light">Welcome {this.props.auth.user.firstName}!</p>
+                    </li>
+                    <li className="nav-item">
+                        <Link onClick={this.logOut} className="nav-link text-light" to="/">Logout</Link>
                     </li>
                 </ul>
             )
@@ -48,6 +57,11 @@ class AppHeader extends Component {
         )
     }
 
+    logOut = () => {
+        this.props.logoutDispatch();
+        
+    }
+
     render() {
         return(
             <div className="app-header-div navbar-dark">
@@ -60,10 +74,10 @@ class AppHeader extends Component {
                             <li className="nav-item active">
                                 <Link className="nav-link text-light" to="/">Home</Link>
                             </li>
-                            {this.renderEditSubscription()}
                             <li className="nav-item active">
                                 <Link className="nav-link text-light" to="/about">About</Link>
                             </li>
+                            {this.renderEditSubscription()}
                         </ul>
                         <span className="navbar-text text-light">
                             {this.renderAuthenticationLinks()}
@@ -75,4 +89,8 @@ class AppHeader extends Component {
     }
 }
 
-export default AppHeader;
+const matchStateToProps = (state: any) => ({
+    auth: state.auth
+});
+
+export default connect(matchStateToProps, { logoutDispatch })(AppHeader);

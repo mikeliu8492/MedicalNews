@@ -1,5 +1,9 @@
 import React, {Component} from 'react';
-import axios from 'axios';
+
+import { Redirect } from 'react-router-dom'
+
+import {connect} from 'react-redux';
+import {loginDispatch} from '../../actions/auth/AuthActions';
 
 interface State {
     email: string,
@@ -12,7 +16,8 @@ class Login extends Component <any, State> {
     state = {
         email: "",
         password: "",
-        errors: { email: "", password: ""}
+        errors: { email: "", password: ""},
+        redirect: true
     }
 
     handleFieldChange = (field: string) => (event: any) => {
@@ -21,18 +26,7 @@ class Login extends Component <any, State> {
 
     handleSubmit = async (e: any) => {
         e.preventDefault();
-
-        try {
-            const result = await axios.post("http://localhost:5000/api/user/login", {email: this.state.email, password: this.state.password});
-            console.log(result);
-            // TODO:  Send data to redux store.
-            this.props.history.push('/subscription');     
-        }
-        catch(err) {
-            this.setState({errors: err.response.data.errors})
-        }
-
-
+        this.props.loginDispatch(this.state.email, this.state.password, this.props.history);
     }
 
     showError = (errorMessage?: string) => {
@@ -42,6 +36,7 @@ class Login extends Component <any, State> {
     }
 
     render() {
+
         return(
             <div className="container" >
                 <div className="card px-2 mx-auto w-75">
@@ -52,12 +47,12 @@ class Login extends Component <any, State> {
                             <div className="form-group">
                                 <label className="px-1">Email</label>
                                 <input type="email" name="email" className="form-control" value={this.state.email} onChange={this.handleFieldChange("email")} required></input>
-                                {this.showError(this.state.errors.email)}
+                                {this.showError(this.props.errors.email)}
                             </div>
                             <div className="form-group">
                                 <label className="px-1">Password</label>
                                 <input type="password" name="password" className="form-control" value={this.state.password} onChange={this.handleFieldChange("password")} required></input>
-                                {this.showError(this.state.errors.password)}
+                                {this.showError(this.props.errors.password)}
                             </div>
                             <button type="submit" className="btn btn-success">Submit</button>
                         </form>
@@ -68,4 +63,9 @@ class Login extends Component <any, State> {
     }
 }
 
-export default Login;
+const matchStateToProps = (state: any) => ({
+    auth: state.auth,
+    errors: state.errors
+});
+
+export default connect(matchStateToProps, { loginDispatch })(Login);

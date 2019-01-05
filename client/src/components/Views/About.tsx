@@ -19,6 +19,8 @@ const About = () => {
                         and allowing authenticated users to subscribe to a weekly email news feed.  Users will be allowed to select up to a maximum of 5 distinct topics to subscribe to;
                         the weekly mail feed usually will arrive on Sunday evening.
                     </p>
+                    <br/>
+                    <p className="text-danger"><b>E-mail subscription functionality not implemented yet.  You can preview result on the "Edit Subscription" page.</b></p>
                 </section>
 
                 <div className="p-2 m-5">

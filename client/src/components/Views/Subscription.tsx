@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import RelatedWordsForm from '../Choices/RelatedWordsForm';
-import NewsArticleList from '../NewsArticles/NewsArticleList';
+import NewsArticleLogic from '../NewsArticles/NewsArticleLogic';
 import SelectedTopicChoices from '../Choices/SelectedTopicChoices';
 
 class Subscription extends Component {
@@ -57,7 +57,7 @@ class Subscription extends Component {
                     <div className="py-2">
                         <h1 className="text-center">Top Personalized Articles for You!</h1>
                     </div>
-                    <NewsArticleList personal={true}/>
+                    <NewsArticleLogic personal={true}/>
                 </div>
             </div>
 

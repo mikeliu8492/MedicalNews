@@ -1,6 +1,12 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 
+import { Redirect } from 'react-router-dom'
+
+import {connect} from 'react-redux';
+import {loginDispatch} from '../../actions/auth/AuthActions';
+
+
 interface State {
     firstName: string,
     lastName: string,
@@ -26,10 +32,8 @@ class Register extends Component <any, State> {
         e.preventDefault();
 
         try {
-            const result = await axios.post("http://localhost:5000/api/user/register", {email: this.state.email, password: this.state.password, firstName: this.state.firstName, lastName: this.state.lastName});
-            console.log(result);
-            // TODO:  Send data to redux store.
-            this.props.history.push('/subscription');
+            const result = await axios.post("/api/user/register", {email: this.state.email, password: this.state.password, firstName: this.state.firstName, lastName: this.state.lastName});
+            this.props.loginDispatch(this.state.email, this.state.password, this.props.history);
         }
         catch(err) {
             this.setState({errors: err.response.data.errors})
@@ -80,4 +84,9 @@ class Register extends Component <any, State> {
     }
 }
 
-export default Register;
+const matchStateToProps = (state: any) => ({
+    auth: state.auth,
+    errors: state.errors
+});
+
+export default connect(matchStateToProps, { loginDispatch })(Register);
