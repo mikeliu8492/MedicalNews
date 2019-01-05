@@ -7,7 +7,7 @@ import {logoutDispatch} from './actions/auth/AuthActions';
 
 // Components
 import AppHeader from './components/Common/AppHeader';
-import {Home, About, Login, Register, Subscription} from './components/Views/Index';
+import {Home, About, Login, Register, Subscription, UserSettings} from './components/Views/Index';
 
 // Styles
 import './App.css';
@@ -58,6 +58,7 @@ class App extends Component {
                   <Route exact path="/login" component={Login}/>
                   <Route exact path="/register" component={Register}/>
                   <Route exact path="/subscription" component={Subscription}/>
+                  <Route exact path="/settings" component={UserSettings}/>
               </Switch>
             </div>
           </div>

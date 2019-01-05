@@ -21,9 +21,9 @@ class AppHeader extends Component<any,any> {
                         User Options
                     </a>
                     
-                    <div className="dropdown-menu" aria-labelledby="navbarDropdown" style={{minWidth: "300px"}}>
+                    <div className="dropdown-menu pl-3" aria-labelledby="navbarDropdown" style={{minWidth: "250px"}}>
                         <Link className="nav-link text-dark" to="/subscription">Preview Your Subscription</Link>
-                        <Link className="nav-link text-dark" to="/">User Settings</Link>
+                        <Link className="nav-link text-dark" to="/settings">User Settings</Link>
                     </div>
                 </li>
             );

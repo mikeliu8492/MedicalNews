@@ -103,7 +103,7 @@ class SelectedTopicChoices extends Component<any, State> {
                     <br/>
                     <form onSubmit={this.handleSubmit}>
                         <div className="form-group">
-                            <label>Input a Word to Get Related Words</label>
+                            <label>Input Your Search Terms</label>
                             <input type="text" className="form-control" value={this.state.input} onChange={this.handleInputChange}></input>
                             <p className="text-danger">{this.state.errorMessage}</p>
                         </div>
