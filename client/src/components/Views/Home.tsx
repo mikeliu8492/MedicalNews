@@ -1,12 +1,12 @@
 import React from 'react';
-import NewsArticleList from '../NewsArticles/NewsArticleList';
+import NewsArticleLogic from '../NewsArticles/NewsArticleLogic';
 
 const Home = () => {
     return(
         <div>
             <h1 className="text-center ">Top Medical News Today Stories</h1>
             <br/><br/>
-            <NewsArticleList personal={false}/>
+            <NewsArticleLogic personal={false}/>
         </div>
     )
 }

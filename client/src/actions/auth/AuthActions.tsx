@@ -5,7 +5,7 @@ import axios from 'axios';
 
 
 export const loginDispatch = (email: string, password: string, history: any) => (dispatch: any) => {
-    axios.post("http://localhost:5000/api/user/login", {email: email, password: password})
+    axios.post("/api/user/login", {email: email, password: password})
     .then(result => {
         const user: any = result.data;
         localStorage.setItem("token", user.token);

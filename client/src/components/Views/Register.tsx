@@ -32,7 +32,7 @@ class Register extends Component <any, State> {
         e.preventDefault();
 
         try {
-            const result = await axios.post("http://localhost:5000/api/user/register", {email: this.state.email, password: this.state.password, firstName: this.state.firstName, lastName: this.state.lastName});
+            const result = await axios.post("/api/user/register", {email: this.state.email, password: this.state.password, firstName: this.state.firstName, lastName: this.state.lastName});
             this.props.loginDispatch(this.state.email, this.state.password, this.props.history);
         }
         catch(err) {
