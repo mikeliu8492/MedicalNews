@@ -39,7 +39,7 @@ class AppHeader extends Component<any,any> {
                         <p className="nav-link text-light">Welcome {this.props.auth.user.firstName}!</p>
                     </li>
                     <li className="nav-item">
-                        <Link onClick={this.logOut} className="nav-link text-light" to="/">Logout</Link>
+                        <Link onClick={this.logOut} className="nav-link text-light btn btn-danger" to="/">Logout</Link>
                     </li>
                 </ul>
             )
@@ -47,11 +47,11 @@ class AppHeader extends Component<any,any> {
 
         return (
             <ul className="navbar-nav mr-auto">
-                <li className="nav-item">
-                    <Link className="nav-link text-light" to="/register">Register</Link>
+                <li className="nav-item mr-2">
+                    <Link className="nav-link text-light btn btn-primary" to="/register">Register</Link>
                 </li>
-                <li className="nav-item">
-                    <Link className="nav-link text-light" to="/login">Login</Link>
+                <li className="nav-item mr-2">
+                    <Link className="nav-link text-light btn btn-success" to="/login">Login</Link>
                 </li>
             </ul>
         )

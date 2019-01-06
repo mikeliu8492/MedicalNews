@@ -3,8 +3,6 @@ import axios from 'axios';
 
 
 export const setErrors = (errorList: any) => {
-    console.log("set errors in action");
-    console.log(errorList);
     return {
         type: ERROR_SET,
         payload: errorList

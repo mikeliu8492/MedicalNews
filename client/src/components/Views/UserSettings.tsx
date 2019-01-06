@@ -46,10 +46,26 @@ class Login extends Component <any, State> {
         }
     }
 
+    renderSearchTerms = () => {
+        if(this.props.topics.length > 0) {
+            return this.props.topics.map((topic: any, index: number) => {
+                return(<div className="col-md-2 my-2">
+                    <input type="text" className="form-control" value={topic} readOnly></input>
+                </div>)
+            })
+        }
+
+        return (
+            <div className="col-md-2 mx-2 my-2">
+                <p>No terms selected.</p>
+            </div>
+        )
+
+    }
+
     render() {
-        console.log("opted in: " + this.state.optIn)
         return(
-            <div className="container" >
+            <div>
                 <div className="card px-2 mx-auto w-75">
                     <div className="card-body">                
                         <h6 className="card-title text-center">Settings Form</h6>
@@ -70,11 +86,22 @@ class Login extends Component <any, State> {
                                 <input type="email" name="email" className="form-control" value={this.state.email} onChange={this.handleFieldChange("email")} required></input>
                                 {this.showError(this.props.errors.email)}
                             </div>
-                            <div className="form-check pb-4">
-                                <br/>
+                            <div className="form-group">
+                                <label className="px-1">Selected Terms</label>
+                                <div className="row">
+                                    {
+                                        this.renderSearchTerms()
+                                    }
+                                    
+                                    <div className="col-md-2 my-2 text-center">
+                                        <button className="btn btn-info">Back to Preview</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="form-check pt-2 pb-4">
                                 <input className="form-check-input" type="checkbox" name="checkOpt" checked={this.state.optIn} onChange={this.handleInput} onClick={this.handleInput}></input>
                                 <label className="form-check-label">
-                                    Default checkbox
+                                    Opt into E-mail Subscription (Weekly)
                                 </label>
                             </div>
                             <button type="submit" className="btn btn-success">Submit</button>
@@ -88,7 +115,8 @@ class Login extends Component <any, State> {
 
 const matchStateToProps = (state: any) => ({
     auth: state.auth,
-    errors: state.errors
+    errors: state.errors,
+    topics: state.topics
 });
 
 export default connect(matchStateToProps, { loginDispatch })(Login);

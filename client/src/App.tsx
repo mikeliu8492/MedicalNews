@@ -19,18 +19,13 @@ import store from './store';
   if(localStorage.token) {
     const decoded: any = jwt_decode(localStorage.token);
     if(!decoded) {
-      console.log("Bad token");
     }
     else {
-      console.log(decoded);
       if(decoded.exp < Date.now()){
         store.dispatch({
           type: "LOGOUT DISPATCH",
           payload: {}
         });
-      }
-      else {
-        console.log("set the user");
       }
     }
   }

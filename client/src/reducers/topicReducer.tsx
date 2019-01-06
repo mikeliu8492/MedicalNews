@@ -13,7 +13,7 @@ export default (state: string[] =  initialState, action: IActionType)  => {
         case TOPIC_DISPATCH:
             return [...action.payload]
         default:
-            return initialState;
+            return state;
     }
 
 };
