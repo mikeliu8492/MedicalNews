@@ -42,7 +42,7 @@ app.use("/api", api);
 // Serve up the front-end static JS Bundle contents in production environment
 if(process.env.NODE_ENV === "production"){
     app.use(secure)
-    app.use(favicon(path.join(__dirname, "client", "public", "favicon.ico")))
+    //app.use(favicon(path.join(__dirname, "client", "public", "favicon.ico")))
 
     app.use(express.static('client/build'));
 
