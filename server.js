@@ -26,7 +26,7 @@ if(process.env.NODE_ENV !== "production") {
 
 
 // Connect to Mongoose DB
-mongoose.connect(config.mongoString, { useNewUrlParser: true,useCreateIndex: true }).then(() => {
+mongoose.connect(encodeURI(config.mongoString), { useNewUrlParser: true,useCreateIndex: true }).then(() => {
     console.log("MongoDB Connection successful!");
 })
 .catch((err) => {
