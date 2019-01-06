@@ -65,12 +65,15 @@ router.post("/login", async (req,res,next) => {
             return res.status(400).json({message: message, errors: errors});
         }
 
-        const expiration = Math.floor(Date.now() / 1000) + (60 * 60)
+        const expiration = Date.now() + 1000*60*60//Math.floor(Date.now() / 1000) + (60 * 60)
         
         const token = jwt.sign({
                 exp: expiration,
                 reset: false,
-                id: user._id
+                id: user._id,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                email: user.email
             }, 
             config.jwtSecret
         );

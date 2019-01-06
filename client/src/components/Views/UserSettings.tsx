@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom'
 
 import {connect} from 'react-redux';
 import {loginDispatch} from '../../actions/auth/AuthActions';
+import {clearErrors} from '../../actions/error/ErrorActions';
 
 interface State {
     firstName: string,
@@ -60,7 +61,10 @@ class Login extends Component <any, State> {
                 <p>No terms selected.</p>
             </div>
         )
+    }
 
+    componentWillUnmount() {
+        this.props.clearErrors();
     }
 
     render() {
@@ -119,4 +123,4 @@ const matchStateToProps = (state: any) => ({
     topics: state.topics
 });
 
-export default connect(matchStateToProps, { loginDispatch })(Login);
+export default connect(matchStateToProps, { loginDispatch, clearErrors })(Login);
