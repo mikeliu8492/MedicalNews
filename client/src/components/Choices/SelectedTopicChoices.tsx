@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-
+import {Link} from 'react-router-dom';
 
 import {connect} from 'react-redux';
 import {changeTopics} from '../../actions/topic/TopicActions';
@@ -103,7 +103,7 @@ class SelectedTopicChoices extends Component<any, State> {
                     <br/>
                     <form onSubmit={this.handleSubmit}>
                         <div className="form-group">
-                            <label>Input a Word to Get Related Words</label>
+                            <label>Input Your Search Terms</label>
                             <input type="text" className="form-control" value={this.state.input} onChange={this.handleInputChange}></input>
                             <p className="text-danger">{this.state.errorMessage}</p>
                         </div>
@@ -121,7 +121,7 @@ class SelectedTopicChoices extends Component<any, State> {
                         <br/>
                         <div className="form-group row">
                             <div className="col-md-12">
-                                <button type="button" className="btn btn-warning" onClick={() => {console.log("go to other")}}><i className="fas fa-tools pr-2"></i>Set These Criteria In Settings</button>
+                                <Link type="button" className="btn btn-warning" to="/settings"><i className="fas fa-tools pr-2"></i>Set These Criteria In Settings</Link>
                             </div>
                         </div>
                     </form>

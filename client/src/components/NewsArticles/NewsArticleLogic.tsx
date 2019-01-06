@@ -20,7 +20,6 @@ class NewsArticleLogic extends Component<Props, State> {
     }
 
     async componentDidMount() {
-        console.log(this.props);
         await this.fetchArticlesWrapper("");
     }
 

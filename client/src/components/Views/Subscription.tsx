@@ -35,22 +35,20 @@ class Subscription extends Component {
             <div>
                 <div>
                     <div className="text-center pt-2">
-                        <button className="btn btn-primary" type="button" onClick={this.handleClick} aria-expanded="false" aria-controls="collapseExample">
+                        <button className="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                             {this.state.buttonMessage}
                         </button>
                         <br/><br/>
                     </div>
-                    {
-                        this.state.helperToolsVisible &&
-                        <div className="row py-5">
-                            <div className="col-md-6">
-                                <SelectedTopicChoices/>
-                            </div>
-                            <div className="col-md-6">
-                                <RelatedWordsForm/>
-                            </div>
+                    <div className="row py-5 show" id="collapseExample">
+                        <div className="col-md-6">
+                            <SelectedTopicChoices/>
                         </div>
-                    }
+                        <div className="col-md-6">
+                            <RelatedWordsForm/>
+                        </div>
+                    </div>
+                    
                 </div>
                     
                 <div className="pt-2">
