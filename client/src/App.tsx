@@ -14,27 +14,38 @@ import './App.css';
 
 // Port your redux store:
 import store from './store';
+import {setUser} from './actions/auth/AuthActions';
 
 
-  if(localStorage.token) {
-    const decoded: any = jwt_decode(localStorage.token);
-    if(!decoded) {
-    }
-    else {
-      if(decoded.exp < Date.now()){
-        store.dispatch({
-          type: "LOGOUT DISPATCH",
-          payload: {}
-        });
+
+class App extends Component<any,any> {
+  componentWillMount() {
+    if(localStorage.token) {
+      const decoded: any = jwt_decode(localStorage.token);
+      if(!decoded) {
+        return;
+      }
+      else {
+        if(decoded.exp < Date.now()){
+          store.dispatch({
+            type: "LOGOUT DISPATCH",
+            payload: {}
+          });
+        }
+        else {
+          store.dispatch(setUser(decoded));
+        }
+
       }
     }
+    else {
+      store.dispatch({
+        type: "LOGOUT DISPATCH",
+        payload: {}
+      });
+      
+    }
   }
-  else {
-    console.log("ON LOAD TOKEN NOT EXISTS")
-  }
-
-class App extends Component {
-
 
 
   render() {
